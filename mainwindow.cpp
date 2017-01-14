@@ -6,7 +6,6 @@
 #include <QKeyEvent>
 #include <QPainter>
 
-#include "goandbacksequence.h"
 #include "roombaodometry.h"
 
 
@@ -30,18 +29,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //OI mode -> Off: 0, Passive: 1, Safe: 2, Full: 3
     oiMode = 0;
 
-    //generate process
-    gab = new goAndBackSequence();
-    gab->setRoombaSerial(myRoombaSerial);
-    connect(gab, SIGNAL(updateVelocity(int, int)),this, SLOT(setReqSpeed(int, int)));
-
     odometyDataUpdatedCount = 0;
 }
 
 MainWindow::~MainWindow()
 {
     //disconnect(ui->autoSequenceButton, SIGNAL(pressed()), this, SLOT(autoButtonPressed()));
-    disconnect(gab, SIGNAL(updateVelocity(int, int)),this, SLOT(setReqSpeed(int, int)));
     disconnect(ui->removeLastPointButton, SIGNAL(pressed()), frame, SLOT(removePreviousPoint()));
     disconnect(ui->removeAllPointsButton, SIGNAL(pressed()), frame, SLOT(removeAllPoints()));
 
@@ -50,7 +43,6 @@ MainWindow::~MainWindow()
 
 
     delete frame;
-    delete gab;
     delete ui;
 }
 
@@ -69,12 +61,10 @@ void MainWindow::dataUpdated()
     ui->value_re_right->setText(QString::number(myRoombaSerial->fetchPacket(EncoderCountsRight)));
     leftRoteryEncoderCount = myRoombaSerial->fetchPacket(EncoderCountsLeft);
     rightRoteryEncoderCount = myRoombaSerial->fetchPacket(EncoderCountsRight);
-    gab->setRoteryEncoderCount(leftRoteryEncoderCount, rightRoteryEncoderCount);
 
     //update bumber data
     ui->value_bumper_left->setText(QString::number((myRoombaSerial->fetchPacket(BumpsWheeldrops) & 0x02) >> 1));
     ui->value_bumper_right->setText(QString::number(myRoombaSerial->fetchPacket(BumpsWheeldrops) & 0x01));
-    gab->setBumper(((myRoombaSerial->fetchPacket(BumpsWheeldrops) & 0x02) >> 1), myRoombaSerial->fetchPacket(BumpsWheeldrops) & 0x01);
 
     //update OI Mode
     oiMode =  myRoombaSerial->fetchPacket(OpenInterfaceMode) & 0xFF;
@@ -141,9 +131,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
         reqRightVerocity = -1 * reqSpeed;
         reqLeftVerocity = 1 * reqSpeed;
-        break;
-    case Qt::Key_A:
-        gab->start();
         break;
     default:
         break;

@@ -18,10 +18,6 @@ RoombaCoordinateFrame::RoombaCoordinateFrame(QWidget *qw)
     setFocusPolicy(Qt::NoFocus);
     //set starting point
     movePoint.append(QPoint(0, 0));
-    movePoint.append(QPoint(100, 0));
-    movePoint.append(QPoint(100, 100));
-    movePoint.append(QPoint(0, 100));
-    movePoint.append(QPoint(0, 0));
     update();
 }
 

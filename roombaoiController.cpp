@@ -34,12 +34,13 @@ roombaOiController::roombaOiController()
     roomba = new roombaSerial();
     QList<QSerialPortInfo> infoList = QSerialPortInfo::availablePorts();
 
+    /*
     // use first device.
     QSerialPortInfo info = infoList.at(0);
     // Example use QSerialPort
     roomba = new roombaSerial();
     roomba->setPort(info);
-
+*/
     roomba->setRequestDataList(reqList);
     roomba->startStreamData();
 

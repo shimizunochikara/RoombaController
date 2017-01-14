@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     sensorpacketproperty.cpp \
     roombaoiController.cpp \
     dataprocessor.cpp \
-    goandbacksequence.cpp \
     roombaodometry.cpp \
     roombacoordinateframe.cpp \
     roombastatemachine.cpp
@@ -29,7 +28,6 @@ HEADERS  += mainwindow.h \
     sensorpacketproperty.h \
     roombaoicontroller.h \
     dataprocessor.h \
-    goandbacksequence.h \
     roombaodometry.h \
     roombacoordinateframe.h \
     roombastatemachine.h

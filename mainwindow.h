@@ -5,7 +5,6 @@
 #include <QtCore/QDebug>
 
 class roombaSerial;
-class goAndBackSequence;
 class RoombaOdometry;
 class RoombaCoordinateFrame;
 
@@ -38,7 +37,6 @@ private:
     int leftRoteryEncoderCount, rightRoteryEncoderCount;
 
     //below parameter is roomba auto control
-    goAndBackSequence *gab;
 
     RoombaOdometry *myRoombaOdometry;
     int odometyDataUpdatedCount;
