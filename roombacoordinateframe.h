@@ -17,7 +17,6 @@ public:
     void paintEvent(QPaintEvent *);
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent * event);
-    void drawGrid(QPainter & painter);
     void drawMousePointer(QPainter &painter);
     void drawPoint(QPoint point, QString str, QPainter &painter);
     void enterEvent(QEvent *);

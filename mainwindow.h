@@ -25,9 +25,6 @@ public:
     void setRoombaOdometry(RoombaOdometry* ro);
     RoombaCoordinateFrame* getRoombaCoordinateFrame(){return frame;};
 
-protected:
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent * event);
 
 private:
     static const int batteryCapacity = 2696;
@@ -39,13 +36,11 @@ private:
     //below parameter is roomba auto control
 
     RoombaOdometry *myRoombaOdometry;
-    int odometyDataUpdatedCount;
     RoombaCoordinateFrame *frame;
 
 
 public slots:
     void dataUpdated();
-    void odometyDataUpdated();
     void setReqSpeed(int left, int right);
 
 };

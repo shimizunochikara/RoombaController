@@ -21,31 +21,6 @@ RoombaCoordinateFrame::RoombaCoordinateFrame(QWidget *qw)
     update();
 }
 
-void RoombaCoordinateFrame::drawGrid(QPainter & painter)
-{
-    const int GridInterval = 50;
-    double height = this->geometry().height();
-    double width = this->geometry().width();
-
-    painter.setPen("Gray");
-
-    for(int i = 1; i < height; i++)
-    {
-        if(i % GridInterval == 0)
-        {
-            painter.drawLine(QPoint(0, i), QPoint(width, i));
-        }
-    }
-
-    for(int i = 1; i < width; i++)
-    {
-        if(i % GridInterval == 0)
-        {
-            painter.drawLine(QPoint(i, 0), QPoint(i, height));
-        }
-    }
-}
-
 void RoombaCoordinateFrame::drawPoint(QPoint point, QString str ,QPainter &painter)
 {
     painter.setPen(QColor("Red"));
@@ -62,7 +37,6 @@ void RoombaCoordinateFrame::paintEvent(QPaintEvent *)
     painter.drawRect(contentsRect());
     QPoint center = this->geometry().center();
 
-    drawGrid(painter);
     drawMousePointer(painter);
     for(int i = 0; i < movePoint.count(); i++)
     {
