@@ -4,8 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT += core gui
 QT += serialport
+QT += xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,7 +22,9 @@ SOURCES += main.cpp\
     dataprocessor.cpp \
     roombaodometry.cpp \
     roombacoordinateframe.cpp \
-    roombastatemachine.cpp
+    roombastatemachine.cpp \
+    mapeditdialog.cpp \
+    settingsmanager.cpp
 
 HEADERS  += mainwindow.h \
     roombaserial.h \
@@ -30,6 +33,9 @@ HEADERS  += mainwindow.h \
     dataprocessor.h \
     roombaodometry.h \
     roombacoordinateframe.h \
-    roombastatemachine.h
+    roombastatemachine.h \
+    mapeditdialog.h \
+    settingsmanager.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    mapeditdialog.ui

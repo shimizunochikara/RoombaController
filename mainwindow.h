@@ -7,6 +7,7 @@
 class roombaSerial;
 class RoombaOdometry;
 class RoombaCoordinateFrame;
+class MapEditDialog;
 
 namespace Ui {
 class MainWindow;
@@ -37,11 +38,13 @@ private:
 
     RoombaOdometry *myRoombaOdometry;
     RoombaCoordinateFrame *frame;
-
+    MapEditDialog * mapEditDialog;
 
 public slots:
     void dataUpdated();
     void setReqSpeed(int left, int right);
+    void odometyDataUpdated();
+    void slotPushEditMapButton();
 
 };
 

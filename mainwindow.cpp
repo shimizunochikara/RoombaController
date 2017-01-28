@@ -7,6 +7,7 @@
 #include <QPainter>
 
 #include "roombaodometry.h"
+#include "mapeditdialog.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -17,11 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //initilize QFrame
     frame = new RoombaCoordinateFrame(parent);
-    connect(ui->removeLastPointButton, SIGNAL(pressed()), frame, SLOT(removePreviousPoint()));
-    connect(ui->removeAllPointsButton, SIGNAL(pressed()), frame, SLOT(removeAllPoints()));
+    mapEditDialog = new MapEditDialog(this);
 
     connect(ui->startMovingButton, SIGNAL(pressed()), frame, SLOT(startButtonPressed()));
     connect(ui->stopMovingButton, SIGNAL(pressed()), frame, SLOT(stopButtonPressed()));
+    connect(ui->mapEditButton, SIGNAL(pressed()), this, SLOT(slotPushEditMapButton()));
+
 
     reqRightVerocity = 0;
     reqLeftVerocity = 0;
@@ -33,10 +35,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    //disconnect(ui->autoSequenceButton, SIGNAL(pressed()), this, SLOT(autoButtonPressed()));
-    disconnect(ui->removeLastPointButton, SIGNAL(pressed()), frame, SLOT(removePreviousPoint()));
-    disconnect(ui->removeAllPointsButton, SIGNAL(pressed()), frame, SLOT(removeAllPoints()));
-
     disconnect(ui->startMovingButton, SIGNAL(pressed()), frame, SLOT(startButtonPressed()));
     disconnect(ui->stopMovingButton, SIGNAL(pressed()), frame, SLOT(stopButtonPressed()));
 
@@ -74,11 +72,21 @@ void MainWindow::setRoombaSerial(roombaSerial *rs)
 void MainWindow::setRoombaOdometry(RoombaOdometry* ro)
 {
     myRoombaOdometry = ro;
-    connect(ui->resetOdometoryButton, SIGNAL(pressed()), myRoombaOdometry, SLOT(resetOdometyData()));
 }
 
 void MainWindow::setReqSpeed(int left, int right)
 {
     reqLeftVerocity = left;
     reqRightVerocity = right;
+}
+
+void MainWindow::odometyDataUpdated()
+{
+
+}
+
+void MainWindow::slotPushEditMapButton()
+{
+
+    mapEditDialog->show();
 }
