@@ -164,7 +164,7 @@ void MapEditDialog::updateMap()
             bool isObstacle = 0x01 & (mapData[i][j] & MapObject::TranversabilityMask) >> MapObject::TranversabilityShift;
             if(isObstacle)
             {
-                //tableItem[i][j]->setBackgroundColor(Qt::blue);
+                tableItem[i][j]->setBackgroundColor(Qt::blue);
             }
             else
             {
