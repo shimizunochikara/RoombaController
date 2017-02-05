@@ -17,6 +17,10 @@ namespace MapObject{
     static int objectTypeShift      = 2;
     static int directionShift       = 0;
 
+    //1セルあたりの距離(mm)
+    static const double LengthPerCell = 300;
+    static const double PI = 3.1415;
+
     enum Traversablity // 2 pattern
     {
         vacant = 0, //通行可能
@@ -32,11 +36,89 @@ namespace MapObject{
 
     enum direction // 4 pattern
     {
-        forward = 0,
-        left    = 1,
-        right   = 2,
-        behind  = 3
+        forward  = 0,
+        right    = 1,
+        behind   = 2,
+        left     = 3
     };
+
+    static unsigned char extractDirection(unsigned char object)
+    {
+        return (object >> directionShift) & directionMask;
+    }
+
+    static unsigned char isRoombaObject(unsigned char object)
+    {
+        return ((object >> objectTypeShift) &  objectTypeMask) == roombaStartPoint;
+    }
+
+    static void convertToPositionFromMapCell(int mapRow, int mapCol, double &x, double &y)
+    {
+        x = (mapCol + 0.5)* LengthPerCell;
+        y = (mapRow + 0.5)* LengthPerCell;
+        return;
+    }
+
+    static void convertToMapCellFromPosition( double x, double y, int &mapRow, int &mapCol)
+    {
+        mapRow = y / LengthPerCell - 0.5;
+        mapCol = x / LengthPerCell - 0.5;
+        if(mapRow < 0)
+        {
+            mapRow = 0;
+        }
+        if(mapCol < 0)
+        {
+            mapCol = 0;
+        }
+        return;
+    }
+
+    static void convertToDirectionFromMapDirection(unsigned char mapDir, double &Dir)
+    {
+        Dir = (mapDir & directionMask) * PI / 2;
+        switch((int)mapDir)
+        {
+        case forward:
+            Dir = 0;
+            break;
+        case left:
+            Dir = PI / 2;
+            break;
+        case behind:
+            Dir = PI;
+            break;
+        case right:
+            Dir = PI * 3 / 2;
+            break;
+        }
+        return;
+    }
+
+    static void convertToMapDirectionFromDirection(double &Dir, unsigned char &mapDir)
+    {
+        if(0 <= Dir && Dir < PI / 2)
+        {
+            mapDir = forward;
+        }
+        else if(PI / 2 <= Dir && Dir < PI)
+        {
+            mapDir = left;
+        }
+        else if(PI <= Dir && Dir < PI * 3 / 2)
+        {
+            mapDir = behind;
+        }
+        else if(PI * 3 / 2 <= Dir && Dir < PI * 2)
+        {
+            mapDir = right;
+        }
+        else
+        {
+            mapDir = forward;
+        }
+        return;
+    }
 }
 
 class MapEditDialog : public QDialog
@@ -46,22 +128,35 @@ class MapEditDialog : public QDialog
 public:
     explicit MapEditDialog(QWidget *parent = 0);
     ~MapEditDialog();
+    void convertToPositionFromMapCell(int mapRow, int mapCol, double &x, double &y);
+    void convertToMapCellFromPosition( double x, double y, int &mapRow, int &mapCol);
+    void convertToDirectionFromMapDirection(unsigned char mapDir, double &Dir);
+    void convertToMapDirectionFromDirection(double &Dir, unsigned char &mapDir);
 
 private:
     Ui::MapEditDialog *ui;
     QString xmlFileName;
 
+    int roombaPointRow;
+    int roombaPointCol;
+    unsigned char roombaDirection;
+    unsigned char selectedDirection;
+
     // XMX Tag name
-    const QString dataVersionTagName = "dataVersion";
-    const QString rowCountTagName    = "rowCount";
-    const QString colCountTagName    = "colCount";
-    const QString objectArrayTagName = "objectArrayData";
+    const QString dataVersionTagName        = "dataVersion";
+    const QString rowCountTagName           = "rowCount";
+    const QString colCountTagName           = "colCount";
+    const QString objectArrayTagName        = "objectArrayData";
+    const QString roombaInfoTagName         = "roombaInfo";
+    const QString roombaXPositionTagName    = "roombaXPosition";
+    const QString roombaYPositionTagName    = "roombaYPosition";
+    const QString roombaDerectionTagName    = "roombaDerection";
 
     // roomba logo
-    const QString roombaFowardLogo = "f";
-    const QString roombaLeftLogo   = "l";
-    const QString roombaRightLogo  = "r";
-    const QString roombaBehindLogo = "b";
+    const QString roombaFowardLogo = "^";
+    const QString roombaLeftLogo   = "<";
+    const QString roombaRightLogo  = ">";
+    const QString roombaBehindLogo = "|";
 
     // comboBox Label
     const QString roombaLabelText    = "Roomba";
@@ -86,6 +181,13 @@ public slots:
     void updateObjectComboBox();
     void updateButton();
     void addObject();
+    void clearAllObjects();
+    void slotSelectedObjectChanged(const QString &);
+    void pressedUpButton();
+    void pressedDownButton();
+    void pressedLeftButton();
+    void pressedRightButton();
+    void pressedDeleteButton();
 };
 
 #endif // MAPEDITDIALOG_H

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>877</width>
-    <height>569</height>
+    <width>1292</width>
+    <height>685</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>450</y>
+     <x>1020</x>
+     <y>640</y>
      <width>201</width>
      <height>32</height>
     </rect>
@@ -34,8 +34,8 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>541</width>
-     <height>451</height>
+     <width>901</width>
+     <height>651</height>
     </rect>
    </property>
    <property name="focusPolicy">
@@ -66,8 +66,8 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>250</y>
+     <x>960</x>
+     <y>240</y>
      <width>254</width>
      <height>141</height>
     </rect>
@@ -79,19 +79,6 @@
        <string>←</string>
       </property>
      </widget>
-    </item>
-    <item row="2" column="2">
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
     </item>
     <item row="2" column="3">
      <widget class="QPushButton" name="pushButton_right">
@@ -119,20 +106,13 @@
   <widget class="QWidget" name="gridLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>490</y>
+     <x>930</x>
+     <y>520</y>
      <width>291</width>
      <height>71</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="1" column="1">
-     <widget class="QSpinBox" name="spinBox_Horizontal">
-      <property name="maximum">
-       <number>1000</number>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QSpinBox" name="spinBox_Vertical">
       <property name="maximum">
@@ -147,10 +127,10 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>横</string>
+    <item row="1" column="1">
+     <widget class="QSpinBox" name="spinBox_Horizontal">
+      <property name="maximum">
+       <number>1000</number>
       </property>
      </widget>
     </item>
@@ -161,13 +141,20 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>横</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>20</y>
+     <x>960</x>
+     <y>10</y>
      <width>281</width>
      <height>211</height>
     </rect>
@@ -202,8 +189,8 @@
   <widget class="QLabel" name="label_notifyMessage">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>420</y>
+     <x>960</x>
+     <y>410</y>
      <width>251</width>
      <height>20</height>
     </rect>
@@ -215,9 +202,9 @@
   <widget class="QWidget" name="gridLayoutWidget_3">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>490</y>
-     <width>241</width>
+     <x>960</x>
+     <y>420</y>
+     <width>261</width>
      <height>71</height>
     </rect>
    </property>
@@ -244,6 +231,19 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="label_cursor_notation">
+   <property name="geometry">
+    <rect>
+     <x>960</x>
+     <y>390</y>
+     <width>251</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
   </widget>
  </widget>
  <resources/>
